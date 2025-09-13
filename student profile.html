@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Student Profile Portal</title>
+<style>
+  /* Base styles and light mode */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f2f5;
+    color: #222;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+  .profile-container {
+    background-color: white;
+    max-width: 450px;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    padding: 30px;
+    box-sizing: border-box;
+  }
+  .profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  .avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: url('https://i.pravatar.cc/90') no-repeat center/cover;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  .student-info {
+    margin-left: 20px;
+  }
+  .student-info h2 {
+    margin: 0 0 5px 0;
+    font-weight: 700;
+  }
+  .student-info p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+  }
+  .profile-details {
+    margin-top: 15px;
+    line-height: 1.5;
+  }
+  .profile-details strong {
+    display: inline-block;
+    width: 120px;
+    color: #444;
+  }
+  button.toggle-theme {
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 3px 7px rgba(0,123,255,0.5);
+    transition: background-color 0.3s ease;
+  }
+  button.toggle-theme:hover {
+    background-color: #0056b3;
+  }
+
+  /* Dark mode styles */
+  body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  body.dark-mode .profile-container {
+    background-color: #1e1e1e;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+  }
+  body.dark-mode .student-info p {
+    color: #bbbbbb;
+  }
+  body.dark-mode .profile-details strong {
+    color: #ddd;
+  }
+  body.dark-mode button.toggle-theme {
+    background-color: #bb86fc;
+    box-shadow: 0 3px 7px rgba(187,134,252,0.8);
+    color: #222;
+  }
+  body.dark-mode button.toggle-theme:hover {
+    background-color: #985eff;
+  }
+</style>
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="avatar" aria-label="Student profile picture"></div>
+      <div class="student-info">
+        <h2>Alex Johnson</h2>
+        <p>Computer Science Student</p>
+        <p>University of Example</p>
+      </div>
+    </div>
+    <div class="profile-details">
+      <p><strong>Email:</strong> alex.johnson@example.com</p>
+      <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+      <p><strong>Year:</strong> Senior (4th Year)</p>
+      <p><strong>CGPA:</strong> 3.85 / 4.0</p>
+      <p><strong>Interests:</strong> Programming, AI, Robotics</p>
+    </div>
+    <button class="toggle-theme" id="themeToggleBtn">Switch to Dark Mode</button>
+  </div>
+
+<script>
+  const toggleBtn = document.getElementById('themeToggleBtn');
+  const body = document.body;
+
+  toggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    if(body.classList.contains('dark-mode')) {
+      toggleBtn.textContent = 'Switch to Light Mode';
+    } else {
+      toggleBtn.textContent = 'Switch to Dark Mode';
+    }
+  });
+</script>
+</body>
+</html>

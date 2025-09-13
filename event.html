@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Event Management Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        /* Reset and base */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #0f172a;
+            color: #cbd5e1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            color: white;
+            font-family: 'Roboto Mono', monospace;
+            letter-spacing: 1.5px;
+        }
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 3rem;
+            text-transform: uppercase;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        header p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.85;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 8px #38bdf8, 0 0 20px #0ea5e9, 0 0 30px #2563eb; }
+            100% { text-shadow: 0 0 15px #60a5fa, 0 0 25px #38bdf8, 0 0 40px #2563eb;}
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #1e293b;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+        nav a {
+            margin: 0 25px;
+            font-weight: 600;
+            font-family: 'Roboto Mono', monospace;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            color: #60a5fa;
+        }
+        nav a:hover {
+            background-color: #2563eb;
+            color: white;
+            box-shadow: 0 0 8px #38bdf8;
+        }
+
+        /* Section styles */
+        section {
+            background: #1e293b;
+            margin: 40px auto;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(8, 145, 255, 0.3);
+            font-family: 'Roboto Mono', monospace;
+        }
+        section h2 {
+            border-left: 6px solid #38bdf8;
+            padding-left: 15px;
+            font-size: 2rem;
+            color: #38bdf8;
+            margin-bottom: 25px;
+        }
+
+        /* Events list */
+        ul.events-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        ul.events-list li {
+            margin-bottom: 16px;
+            padding: 20px 25px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+            position: relative;
+            color: inherit;
+            padding-left: 50px; /* To accommodate icon */
+        }
+        ul.events-list li:hover {
+            transform: translateY(-5px);
+        }
+        ul.events-list li strong {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        ul.events-list li small {
+            color: #94a3b8;
+        }
+        ul.events-list li p {
+            margin: 5px 0;
+        }
+        ul.events-list li p strong {
+            color: #60a5fa;
+        }
+
+        /* Event category colors and decorations */
+        ul.events-list li.event-tech {
+            border-left: 6px solid #3b82f6; /* Blue for tech */
+            background: linear-gradient(145deg, #1e293b, #273549);
+            color: #bfdbfe;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.6);
+        }
+        ul.events-list li.event-tech::before {
+            content: "💻";
+            position: absolute;
+            left: 10px;
+            top: 22px;
+            font-size: 24px;
+            filter: drop-shadow(0 0 2px #3b82f6);
+        }
+        ul.events-list li.event-music {
+            border-left: 6px solid #ef4444; /* Red for music */
+            background: linear-gradient(145deg, #581c1c, #731a1a);
+            color: #fecaca;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.6);
+        }
+        ul.events-list li.event-music::before {
+            content: "🎵";
+            position: absolute;
+            left: 10px;
+            top: 22px;
+            font-size: 24px;
+            filter: drop-shadow(0 0 2px #ef4444);
+        }
+        ul.events-list li.event-art {
+            border-left: 6px solid #fbbf24; /* Yellow for art */
+            background: linear-gradient(145deg, #4a4a1a, #6b6a23);
+            color: #fef3c7;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.6);
+        }
+        ul.events-list li.event-art::before {
+            content: "🎨";
+            position: absolute;
+            left: 10px;
+            top: 22px;
+            font-size: 24px;
+            filter: drop-shadow(0 0 2px #fbbf24);
+        }
+
+        /* Form */
+        form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 700;
+            color: #7dd3fc;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 6px;
+            border: 1.5px solid #2563eb;
+            background-color: #0f172a;
+            color: #e0e7ff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #38bdf8;
+            outline: none;
+            box-shadow: 0 0 8px #38bdf8;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            display: inline-block;
+            background-color: #2563eb;
+            color: white;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 12px 26px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        button:hover {
+            background-color: #0ea5e9;
+            box-shadow: 0 0 15px #38bdf8;
+        }
+
+        /* Contact info */
+        #contact p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+            nav a {
+                margin: 0;
+            }
+            section {
+                margin: 25px 15px;
+                padding: 25px 20px;
+            }
+            ul.events-list li {
+                padding-left: 40px;
+            }
+            ul.events-list li::before {
+                left: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>EVENT MANAGEMENT PORTAL</h1>
+            <p>Your gateway to amazing events and tech-driven experiences</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="#events">Events</a>
+            <a href="#register">Register</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="events" class="container" aria-label="List of upcoming events">
+        <h2>Upcoming Events</h2>
+        <ul class="events-list" role="list">
+            <li class="event-tech">
+                <strong>Tech Conference 2025</strong>
+                <small>Date: October 15, 2025 | Location: Convention Center, Cityville</small>
+                <p>An immersive conference covering the latest trends in AI, IoT, and cloud computing.</p>
+                <p><strong>Coordinator:</strong> Alice Johnson</p>
+                <p><strong>Contact:</strong> +1 555 123 4567</p>
+            </li>
+            <li class="event-music">
+                <strong>Music Festival</strong>
+                <small>Date: November 28, 2025 | Location: Green Park, Cityville</small>
+                <p>Join the biggest live performances with top bands and DJs spinning the decks.</p>
+                <p><strong>Coordinator:</strong> Michael Smith</p>
+                <p><strong>Contact:</strong> +1 555 987 6543</p>
+            </li>
+            <li class="event-art">
+                <strong>Art & Craft Fair</strong>
+                <small>Date: December 5, 2025 | Location: Downtown Exhibition Hall</small>
+                <p>Explore innovative artworks and handmade crafts from emerging artists.</p>
+                <p><strong>Coordinator:</strong> Sophia Lee</p>
+                <p><strong>Contact:</strong> +1 555 456 7890</p>
+            </li>
+        </ul>
+    </section>
+
+    <section id="register" class="container" aria-labelledby="register-title">
+        <h2 id="register-title">Event Registration</h2>
+        <form action="#" method="post" onsubmit="return validateForm()" aria-describedby="register-instructions">
+            <p id="register-instructions" style="color:#7dd3fc;">Fill in the form to register for your preferred event.</p>
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required autocomplete="name" />
+
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="email@example.com" required autocomplete="email" />
+
+            <label for="event">Select Event *</label>
+            <select id="event" name="event" required>
+                <option value="" disabled selected>-- Choose your event --</option>
+                <option value="tech-conference">Tech Conference 2025</option>
+                <option value="music-festival">Music Festival</option>
+                <option value="art-craft-fair">Art & Craft Fair</option>
+            </select>
+
+            <label for="comments">Additional Comments</label>
+            <textarea id="comments" name="comments" rows="4" placeholder="Any special requirements or questions?"></textarea>
+
+            <button type="submit" aria-label="Submit your event registration">Register Now</button>
+        </form>
+    </section>
+
+    <section id="contact" class="container" aria-label="Contact information">
+        <h2>Contact Us</h2>
+        <p>Email: <a href="mailto:info@eventportal.com">info@eventportal.com</a></p>
+        <p>Phone: <a href="tel:+12345678900">+1 234 567 8900</a></p>
+        <p>Address: 123 Main Street, Cityville</p>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align:center; padding: 12px 0; font-family: 'Roboto Mono', monospace; color: #94a3b8;">
+            &copy; 2025 Event Management Portal. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const event = document.getElementById('event').value;
+
+            if (!name || !email || !event) {
+                alert("Please fill in all required fields.");
+                return false;
+            }
+            const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+            alert("Registration successful. Thank you!");
+            return true;
+        }
+    </script>
+</body>
+</html>

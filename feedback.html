@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feedback Portal - Dark Mode</title>
+    <style>
+        :root {
+            --color-background-light: #f4f4f9;
+            --color-background-dark: #1e1e2f;
+            --color-text-light: #333;
+            --color-text-dark: #ddd;
+            --color-container-light: white;
+            --color-container-dark: #2c2c3c;
+            --color-border-light: #ccc;
+            --color-border-dark: #444;
+            --color-primary: #5c67f2;
+            --color-primary-hover: #4a54e1;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--color-background-light);
+            color: var(--color-text-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark-mode {
+            background-color: var(--color-background-dark);
+            color: var(--color-text-dark);
+        }
+        .feedback-container {
+            background: var(--color-container-light);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark-mode .feedback-container {
+            background: var(--color-container-dark);
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--color-border-light);
+            border-radius: 4px;
+            resize: vertical;
+            font-size: 14px;
+            background: white;
+            color: black;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        .dark-mode input[type="text"],
+        .dark-mode input[type="email"],
+        .dark-mode textarea {
+            background: #44475a;
+            color: #f8f8f2;
+            border: 1px solid var(--color-border-dark);
+        }
+        textarea {
+            min-height: 100px;
+        }
+        button {
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: var(--color-primary-hover);
+        }
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .toggle-switch input[type="checkbox"] {
+            height: 0;
+            width: 0;
+            visibility: hidden;
+        }
+        .toggle-switch label {
+            cursor: pointer;
+            text-indent: -9999px;
+            width: 50px;
+            height: 25px;
+            background: #ccc;
+            display: block;
+            border-radius: 100px;
+            position: relative;
+        }
+        .toggle-switch label:after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            background: white;
+            border-radius: 90px;
+            transition: 0.3s;
+        }
+        .toggle-switch input:checked + label {
+            background: var(--color-primary);
+        }
+        .toggle-switch input:checked + label:after {
+            left: calc(100% - 2px - 21px);
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-container">
+        <h2>Feedback Portal</h2>
+        <div class="toggle-switch">
+            <input type="checkbox" id="darkModeToggle" />
+            <label for="darkModeToggle">Toggle Dark Mode</label>
+        </div>
+        <form id="feedbackForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+            <label for="feedback">Your Feedback:</label>
+            <textarea id="feedback" name="feedback" placeholder="Write your feedback here" required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+        <p id="responseMessage" style="color: green; text-align:center;"></p>
+    </div>
+
+    <script>
+        const body = document.body;
+        const toggle = document.getElementById('darkModeToggle');
+        toggle.addEventListener('change', () => {
+            body.classList.toggle('dark-mode', toggle.checked);
+        });
+
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const feedback = document.getElementById('feedback').value.trim();
+            if(name && email && feedback) {
+                document.getElementById('responseMessage').textContent = `Thank you, ${name}, for your feedback!`;
+                this.reset();
+            } else {
+                document.getElementById('responseMessage').textContent = "Please fill out all fields.";
+                document.getElementById('responseMessage').style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>

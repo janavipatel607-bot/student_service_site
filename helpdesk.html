@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Help Desk Portal with Dark Mode</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px 20px;
+      color: #333;
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    .container {
+      background: #fff;
+      max-width: 700px;
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      padding: 40px 40px 30px 40px;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    h2, h3 {
+      text-align: center;
+      color: #4b3f72;
+      margin-bottom: 25px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      transition: color 0.4s ease;
+    }
+
+    /* Form styles */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    label {
+      font-weight: 600;
+      color: #66578c;
+      font-size: 1rem;
+      transition: color 0.4s ease;
+    }
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #b8aadf;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, background-color 0.4s ease, color 0.4s ease;
+      font-family: inherit;
+      resize: vertical;
+      background: #fff;
+      color: #333;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #5a4dff;
+      box-shadow: 0 0 8px #8a79ff66;
+      background-color: #f5f5ff;
+    }
+
+    button {
+      background: #5a4dff;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px #5649d6cc;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+      user-select: none;
+    }
+    button:hover {
+      background: #4b3fbe;
+      box-shadow: 0 6px 18px #462ea8cc;
+    }
+    /* Dark mode toggle button */
+    #toggleDark {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #5a4dff;
+      border: none;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 50px;
+      font-weight: 700;
+      box-shadow: 0 5px 15px #5649d6cc;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s ease;
+      z-index: 1000;
+    }
+    #toggleDark:hover {
+      background: #4b3fbe;
+      box-shadow: 0 6px 18px #462ea8cc;
+    }
+
+    /* Tickets section */
+    .tickets {
+      margin-top: 40px;
+    }
+    .ticket {
+      background: #f3f1ff;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 12px rgba(90,77,255,0.2);
+      margin-bottom: 20px;
+      transition: transform 0.2s ease, background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .ticket:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(90,77,255,0.3);
+    }
+    .ticket h4 {
+      color: #53468b;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 1.2rem;
+      transition: color 0.4s ease;
+    }
+    .ticket small {
+      display: block;
+      color: #8378a4;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      transition: color 0.4s ease;
+    }
+    .ticket p {
+      color: #564e82;
+      line-height: 1.4;
+      margin-bottom: 8px;
+      white-space: pre-wrap;
+      transition: color 0.4s ease;
+    }
+
+    /* DARK MODE STYLES */
+    body.dark-mode {
+      background: #121217;
+      color: #ddd;
+    }
+    body.dark-mode .container {
+      background: #1d1c2a;
+      color: #ddd;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+    }
+    body.dark-mode h2,
+    body.dark-mode h3 {
+      color: #a597f7;
+    }
+    body.dark-mode label {
+      color: #b2aaff;
+    }
+    body.dark-mode input[type="text"],
+    body.dark-mode input[type="email"],
+    body.dark-mode select,
+    body.dark-mode textarea {
+      background: #2a2940;
+      color: #ccc;
+      border: 1.5px solid #5a4dff;
+    }
+    body.dark-mode input[type="text"]:focus,
+    body.dark-mode input[type="email"]:focus,
+    body.dark-mode select:focus,
+    body.dark-mode textarea:focus {
+      background-color: #3a37a2;
+      border-color: #8a79ff;
+      box-shadow: 0 0 8px #8a79ffbb;
+      color: #fff;
+    }
+    body.dark-mode button {
+      background: #8a79ff;
+      box-shadow: 0 5px 15px #4b3fbeaa;
+      color: #fff;
+    }
+    body.dark-mode button:hover {
+      background: #6f5edd;
+      box-shadow: 0 6px 18px #3f35a9dd;
+    }
+    body.dark-mode .tickets .ticket {
+      background: #2b2841;
+      box-shadow: 0 4px 12px rgba(138,121,255,0.2);
+    }
+    body.dark-mode .tickets .ticket:hover {
+      box-shadow: 0 8px 25px rgba(138,121,255,0.5);
+    }
+    body.dark-mode .ticket h4 {
+      color: #b2aaff;
+    }
+    body.dark-mode .ticket p,
+    body.dark-mode .ticket small {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="toggleDark" aria-label="Toggle dark mode">Dark Mode</button>
+
+  <div class="container">
+    <h2>Help Desk - Submit Ticket</h2>
+    <form id="ticketForm">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" required />
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="4" required></textarea>
+
+      <label for="priority">Priority</label>
+      <select id="priority" name="priority">
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+      </select>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" placeholder="Optional" />
+
+      <button type="submit">Submit Ticket</button>
+    </form>
+
+    <h3>Submitted Tickets</h3>
+    <div id="tickets" class="tickets">
+      <!-- Tickets will appear here -->
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('ticketForm');
+    const ticketsDiv = document.getElementById('tickets');
+    const toggleBtn = document.getElementById('toggleDark');
+
+    // Load dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      document.body.classList.add('dark-mode');
+      toggleBtn.textContent = 'Light Mode';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        toggleBtn.textContent = 'Light Mode';
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        toggleBtn.textContent = 'Dark Mode';
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const title = document.getElementById('title').value.trim();
+      const description = document.getElementById('description').value.trim();
+      const priority = document.getElementById('priority').value;
+      const email = document.getElementById('email').value.trim();
+      const date = new Date().toLocaleString();
+
+      const ticketEl = document.createElement('div');
+      ticketEl.classList.add('ticket');
+
+      ticketEl.innerHTML = `
+        <h4>${title} <small>(Priority: ${priority})</small></h4>
+        <p>${description}</p>
+        ${email ? `<p><strong>Contact:</strong> ${email}</p>` : ''}
+        <small>Submitted: ${date}</small>
+      `;
+
+      ticketsDiv.prepend(ticketEl);
+
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>

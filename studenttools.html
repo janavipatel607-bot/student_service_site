@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Student Tools Portal - Dark Mode</title>
+<style>
+  /* Root variables for light and dark modes */
+  :root {
+    --color-bg-light: #f0f0f3;
+    --color-bg-dark: #121212;
+    --color-text-light: #222;
+    --color-text-dark: #f0f0f3;
+    --color-accent: #4fc3f7;
+    --color-accent-alt: #0288d1;
+    --color-card-bg-light: #ffffff;
+    --color-card-bg-dark: #1e1e1e;
+    --color-btn-bg: #4fc3f7;
+    --color-btn-bg-hover: #0288d1;
+  }
+
+  /* Base styles */
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-dark);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  header {
+    background-color: var(--color-card-bg-dark);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+  }
+
+  header h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-accent);
+  }
+
+  /* Dark/Light mode toggle button */
+  #darkModeToggle {
+    background-color: var(--color-btn-bg);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #darkModeToggle:hover {
+    background-color: var(--color-btn-bg-hover);
+  }
+
+  main {
+    max-width: 960px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+
+  section.tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  article.tool-card {
+    background-color: var(--color-card-bg-dark);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+    transition: background-color 0.3s ease;
+  }
+
+  article.tool-card h2 {
+    margin-top: 0;
+    color: var(--color-accent);
+    font-size: 1.25rem;
+  }
+
+  article.tool-card p {
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+
+  article.tool-card a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  article.tool-card a:hover {
+    color: var(--color-accent-alt);
+    text-decoration: underline;
+  }
+
+  /* Search form styling */
+  form.google-search {
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  form.google-search input[type="text"] {
+    width: 60%;
+    max-width: 450px;
+    padding: 0.6rem 1rem;
+    border: 2px solid var(--color-accent);
+    border-radius: 30px;
+    font-size: 1rem;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-dark);
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  form.google-search input[type="text"]::placeholder {
+    color: #bbb;
+  }
+
+  form.google-search input[type="text"]:focus {
+    border-color: var(--color-btn-bg-hover);
+  }
+
+  form.google-search button {
+    margin-left: 1rem;
+    padding: 0.55rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--color-btn-bg);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  form.google-search button:hover {
+    background-color: var(--color-btn-bg-hover);
+  }
+
+  /* Light mode styles */
+  body.light-mode {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+  }
+
+  body.light-mode header {
+    background-color: var(--color-card-bg-light);
+    border-bottom: 1px solid #ddd;
+  }
+
+  body.light-mode article.tool-card {
+    background-color: var(--color-card-bg-light);
+    box-shadow: 0 3px 15px rgb(0 0 0 / 0.1);
+  }
+
+  body.light-mode form.google-search input[type="text"] {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Student Tools Portal</h1>
+  <button id="darkModeToggle" aria-label="Toggle dark mode">Toggle Dark Mode</button>
+</header>
+
+<main>
+  <form class="google-search" action="https://www.google.com/search" method="GET" target="_blank" aria-label="Google search form">
+    <input type="text" name="q" placeholder="Search Google or type a URL" aria-label="Search input" />
+    <button type="submit">Search</button>
+  </form>
+
+  <section class="tools" aria-label="AI and Google tools section">
+    <article class="tool-card" tabindex="0">
+      <h2>AI Writing Assistant</h2>
+      <p>Use advanced AI to help write essays, reports, or code snippets with smart suggestions and completions.</p>
+      <a href="https://chat.openai.com/" target="_blank" rel="noopener">Try AI Assistant</a>
+    </article>
+
+    <article class="tool-card" tabindex="0">
+      <h2>Google Scholar</h2>
+      <p>Access scholarly articles, research papers, and academic citations for your studies and projects.</p>
+      <a href="https://scholar.google.com/" target="_blank" rel="noopener">Go to Google Scholar</a>
+    </article>
+
+    <article class="tool-card" tabindex="0">
+      <h2>Online Calculator</h2>
+      <p>Perform quick calculations for math, science, or engineering problems — including advanced functions.</p>
+      <a href="https://www.desmos.com/scientific" target="_blank" rel="noopener">Open Calculator</a>
+    </article>
+
+    <article class="tool-card" tabindex="0">
+      <h2>Reference Manager</h2>
+      <p>Organize your citations and references efficiently to ease your academic writing workflow.</p>
+      <a href="https://www.zotero.org/" target="_blank" rel="noopener">Visit Zotero</a>
+    </article>
+  </section>
+</main>
+
+<script>
+  const toggleBtn = document.getElementById('darkModeToggle');
+  const bodyElem = document.body;
+
+  // Check user preference and set initial mode
+  if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    bodyElem.classList.add('light-mode');
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    bodyElem.classList.toggle('light-mode');
+  });
+</script>
+</body>
+</html>

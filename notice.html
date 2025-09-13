@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Notice Board</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffba08;
+            --danger: #ef233c;
+            --academic: #7209b7;
+            --event: #f77f00;
+            --alert: #d90429;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7ec 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--warning);
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .page-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Filter Section */
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .filter-btn.all {
+            background: var(--primary);
+            color: white;
+        }
+
+        .filter-btn.academic {
+            background: var(--academic);
+            color: white;
+        }
+
+        .filter-btn.events {
+            background: var(--event);
+            color: white;
+        }
+
+        .filter-btn.alert {
+            background: var(--alert);
+            color: white;
+        }
+
+        .filter-btn.active {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Notice Grid */
+        .notice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .notice-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .notice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header i {
+            font-size: 1.5rem;
+        }
+
+        .academic .card-header {
+            background: var(--academic);
+        }
+
+        .events .card-header {
+            background: var(--event);
+        }
+
+        .alert .card-header {
+            background: var(--alert);
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-body h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .card-body p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+
+        .card-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .card-actions button {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-actions button:hover {
+            color: var(--primary);
+        }
+
+        .priority-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .academic .priority-tag {
+            color: var(--academic);
+        }
+
+        .events .priority-tag {
+            color: var(--event);
+        }
+
+        .alert .priority-tag {
+            color: var(--alert);
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 18px 25px;
+            padding-left: 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .notice-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h1>StudentHub Notice Board</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#" class="active">Notices</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Page Title -->
+        <div class="page-title">
+            <h2>Student Notices & Announcements</h2>
+            <p>Stay updated with the latest academic announcements, events, and important alerts</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-bar" placeholder="Search notices...">
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filters">
+            <button class="filter-btn all active">
+                <i class="fas fa-layer-group"></i> All Notices
+            </button>
+            <button class="filter-btn academic">
+                <i class="fas fa-book"></i> Academic
+            </button>
+            <button class="filter-btn events">
+                <i class="fas fa-calendar-alt"></i> Events
+            </button>
+            <button class="filter-btn alert">
+                <i class="fas fa-exclamation-circle"></i> Alerts
+            </button>
+        </div>
+
+        <!-- Notice Grid -->
+        <div class="notice-grid">
+            <!-- Notice 1 -->
+            <div class="notice-card academic">
+                <div class="card-header">
+                    <i class="fas fa-book"></i>
+                    <h3>Academic Notice</h3>
+                </div>
+                <div class="priority-tag">High Priority</div>
+                <div class="card-body">
+                    <h3>Final Exam Schedule Released</h3>
+                    <p>The examination schedule for the Spring 2023 semester has been published. Please check your student portal for your personalized exam timetable.</p>
+                    <div class="card-meta">
+                        <div class="card-date">
+                            <i class="far fa-clock"></i> Posted: 2 days ago
+                        </div>
+                        <div class="card-actions">
+                            <button><i class="far fa-bookmark"></i> Save</button>
+                            <button><i class="far fa-share-square"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice 2 -->
+            <div class="notice-card events">
+                <div class="card-header">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Event</h3>
+                </div>
+                <div class="priority-tag">Medium Priority</div>
+                <div class="card-body">
+                    <h3>Annual Science Fair Registration</h3>
+                    <p>Registration for the Annual Science Fair is now open. Students interested in participating should register by May 15th. Great prizes to be won!</p>
+                    <div class="card-meta">
+                        <div class="card-date">
+                            <i class="far fa-clock"></i> Posted: 5 days ago
+                        </div>
+                        <div class="card-actions">
+                            <button><i class="far fa-bookmark"></i> Save</button>
+                            <button><i class="far fa-share-square"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice 3 -->
+            <div class="notice-card alert">
+                <div class="card-header">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Alert</h3>
+                </div>
+                <div class="priority-tag">Urgent</div>
+                <div class="card-body">
+                    <h3>Campus Network Maintenance</h3>
+                    <p>There will be scheduled network maintenance this weekend from 10:00 PM Saturday to 6:00 AM Sunday. Campus Wi-Fi and online portals will be unavailable during this time.</p>
+                    <div class="card-meta">
+                        <div class="card-date">
+                            <i class="far fa-clock"></i> Posted: 1 day ago
+                        </div>
+                        <div class="card-actions">
+                            <button><i class="far fa-bookmark"></i> Save</button>
+                            <button><i class="far fa-share-square"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice 4 -->
+            <div class="notice-card academic">
+                <div class="card-header">
+                    <i class="fas fa-book"></i>
+                    <h3>Academic Notice</h3>
+                </div>
+                <div class="priority-tag">Medium Priority</div>
+                <div class="card-body">
+                    <h3>Course Registration Deadline Extended</h3>
+                    <p>The deadline for course registration has been extended to Friday, May 12th. Please ensure you register for your courses before the new deadline.</p>
+                    <div class="card-meta">
+                        <div class="card-date">
+                            <i class="far fa-clock"></i> Posted: 3 days ago
+                        </div>
+                        <div class="card-actions">
+                            <button><i class="far fa-bookmark"></i> Save</button>
+                            <button><i class="far fa-share-square"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice 5 -->
+            <div class="notice-card events">
+                <div class="card-header">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Event</h3>
+                </div>
+                <div class="priority-tag">Low Priority</div>
+                <div class="card-body">
+                    <h3>Guest Lecture on AI in Healthcare</h3>
+                    <p>Dr. Sarah Johnson from TechHealth Innovations will be giving a guest lecture on "AI Applications in Modern Healthcare" on May 20th at 3:00 PM in the Main Auditorium.</p>
+                    <div class="card-meta">
+                        <div class="card-date">
+                            <i class="far fa-clock"></i> Posted: 1 week ago
+                        </div>
+                        <div class="card-actions">
+                            <button><i class="far fa-bookmark"></i> Save</button>
+                            <button><i class="far fa-share-square"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice 6 -->
+            <div class="notice-card alert">
+                <div class="card-header">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Alert</h3>
+                </div>
+                <div class="priority-tag">High Priority</div>
+                <div class="card-body">
+                    <h3>Library Closing Early Tomorrow</h3>
+                    <p>The main library will close at 5:00 PM tomorrow due to a special event. Please plan your study time accordingly. The library will resume normal hours on Thursday.</p>
+                    <div class="card-meta">
+                        <div class="card-date">
+                            <i class="far fa-clock"></i> Posted: 4 days ago
+                        </div>
+                        <div class="card-actions">
+                            <button><i class="far fa-bookmark"></i> Save</button>
+                            <button><i class="far fa-share-square"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const noticeCards = document.querySelectorAll('.notice-card');
+            const searchInput = document.querySelector('.search-bar');
+            
+            // Filter by category
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.classList[1];
+                    
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Filter cards
+                    noticeCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = 'block';
+                        } else if (card.classList.contains(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                noticeCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const content = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Card action buttons
+            const saveButtons = document.querySelectorAll('.card-actions button:first-child');
+            saveButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.classList.toggle('saved');
+                    if (this.classList.contains('saved')) {
+                        this.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+                    } else {
+                        this.innerHTML = '<i class="far fa-bookmark"></i> Save';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
