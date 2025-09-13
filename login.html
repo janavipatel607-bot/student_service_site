@@ -2,143 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portal Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Student Hub - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #f72585;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
-            --warning: #ffba08;
-        }
-
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background: linear-gradient(120deg, #3e5151, #decba4);
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
+            justify-content: center;
         }
-
         .login-container {
-            display: flex;
-            width: 900px;
-            height: 550px;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        .graphic-side {
-            flex: 1;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 40px;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 4px 16px rgba(34,34,34,0.08);
+            border-radius: 16px;
+            padding: 32px 26px 26px 26px;
+            width: 350px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .graphic-content {
-            z-index: 2;
-            position: relative;
-        }
-
-        .graphic-side h2 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .graphic-side p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            max-width: 300px;
-        }
-
-        .features {
-            list-style: none;
-        }
-
-        .features li {
-            margin-bottom: 15px;
-            display: flex;
             align-items: center;
-            gap: 10px;
         }
-
-        .features i {
-            background: rgba(255, 255, 255, 0.2);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .floating-icons {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-
-        .floating-icons div {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.1;
-            background: white;
-        }
-
-        .circle-1 {
-            width: 150px;
-            height: 150px;
-            top: -50px;
-            left: -50px;
-        }
-
-        .circle-2 {
-            width: 100px;
-            height: 100px;
-            bottom: 50px;
-            right: 50px;
-        }
-
-        .circle-3 {
-            width: 70px;
-            height: 70px;
-            top: 100px;
-            right: 70px;
-        }
-
-        .form-side {
-            flex: 1;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .logo {
+      .logo {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -155,337 +41,141 @@
             font-size: 1.8rem;
             font-weight: 700;
         }
-
-        .form-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-title h2 {
-            font-size: 1.8rem;
-            color: var(--secondary);
-            margin-bottom: 10px;
-        }
-
-        .form-title p {
-            color: #666;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-        }
-
-        .input-group input {
+        .input-field {
             width: 100%;
-            padding: 15px 15px 15px 45px;
-            border: 2px solid #e6e6e6;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            padding: 12px;
+            margin: 10px 0 18px 0;
+            border: 1px solid #cdcdcd;
+            border-radius: 8px;
+            background: #f7f7f7;
+            transition: border-color 0.2s;
         }
-
-        .input-group input:focus {
-            border-color: var(--primary);
+        .input-field:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            border-color: #34568B;
+            background: #fff;
         }
-
-        .options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            font-size: 0.9rem;
-        }
-
-        .remember {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #666;
-        }
-
-        .remember input {
-            accent-color: var(--primary);
-        }
-
-        .forgot {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .forgot:hover {
-            text-decoration: underline;
-        }
-
         .login-btn {
             width: 100%;
-            padding: 15px;
-            background: var(--primary);
-            color: white;
+            background: #34568B;
+            color: #fff;
+            padding: 13px 0;
+            font-size: 1rem;
             border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 8px;
+            letter-spacing: 1px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
+            margin-bottom: 10px;
+            transition: background 0.2s;
         }
-
         .login-btn:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+            background: #26375c;
         }
-
-        .divider {
-            text-align: center;
-            margin: 25px 0;
-            position: relative;
-            color: #999;
-        }
-
-        .divider::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 42%;
-            height: 1px;
-            background: #e6e6e6;
-        }
-
-        .divider::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            width: 42%;
-            height: 1px;
-            background: #e6e6e6;
-        }
-
-        .social-login {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .social-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f5f5f5;
-            border: 1px solid #e6e6e6;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .google {
-            color: #DB4437;
-        }
-
-        .facebook {
-            color: #4267B2;
-        }
-
-        .twitter {
-            color: #1DA1F2;
-        }
-
-        .signup {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-        }
-
-        .signup a {
-            color: var(--primary);
+        .forgot-link {
+            color: #648bb6;
+            font-size: 0.95rem;
             text-decoration: none;
-            font-weight: 600;
+            float: right;
         }
-
-        .signup a:hover {
+        .forgot-link:hover {
             text-decoration: underline;
         }
-
-        /* Animation for floating icons */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            33% {
-                transform: translateY(-10px) rotate(5deg);
-            }
-            66% {
-                transform: translateY(10px) rotate(-5deg);
-            }
+        .signup-container {
+            margin: 18px 0 0 0;
+            text-align: center;
         }
-
-        .floating-icons div {
-            animation: float 8s ease-in-out infinite;
+        .signup-link {
+            color: #34568B;
+            text-decoration: none;
+            font-weight: bold;
         }
-
-        .circle-1 {
-            animation-delay: 0s;
+        .signup-link:hover {
+            text-decoration: underline;
         }
-
-        .circle-2 {
-            animation-delay: 1.6s;
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 19px 0 13px 0;
+            color: #aaa;
+            font-size: 0.95rem;
         }
-
-        .circle-3 {
-            animation-delay: 3.2s;
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1.5px solid #eee;
         }
-
-        /* Responsive design */
-        @media (max-width: 900px) {
-            .login-container {
-                flex-direction: column;
-                height: auto;
-                width: 100%;
-                max-width: 500px;
-            }
-            
-            .graphic-side {
-                order: 2;
-                padding: 30px;
-            }
-            
-            .form-side {
-                order: 1;
-                padding: 30px;
-            }
+        .divider:not(:empty)::before {
+            margin-right: .8em;
+        }
+        .divider:not(:empty)::after {
+            margin-left: .8em;
+        }
+        .continue-btn {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            background: #fff;
+            color: #444;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
+            margin-bottom: 8px;
+            transition: background 0.2s;
+            font-size: 1rem;
+            justify-content: center;
+        }
+        .continue-btn:hover {
+            background: #e9e9e9;
+        }
+        .continue-btn img {
+            height: 22px;
+            margin-right: 10px;
+        }
+        .fb {
+            border: 1px solid #4267b2;
+            background: #4267b2;
+            color: #fff;
+        }
+        .fb:hover {
+            background: #3750a7;
+        }
+        .google {
+            border: 1px solid #d44e33;
+            background: #fff;
+            color: #444;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="graphic-side">
-            <div class="floating-icons">
-                <div class="circle-1"></div>
-                <div class="circle-2"></div>
-                <div class="circle-3"></div>
-            </div>
-            <div class="graphic-content">
-                <h2>Welcome Back to StudentHub!</h2>
-                <p>Access your academic dashboard, connect with peers, and manage your learning journey.</p>
-                <ul class="features">
-                    <li><i class="fas fa-book"></i> Access course materials</li>
-                    <li><i class="fas fa-calendar"></i> Track your schedule</li>
-                    <li><i class="fas fa-graduation-cap"></i> View your grades</li>
-                    <li><i class="fas fa-users"></i> Connect with classmates</li>
-                </ul>
-            </div>
+        <img src="student-hub-logo.png" alt="Student Hub Logo" class="logo">
+        <div class="login-title">Student Hub Login</div>
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" class="input-field" placeholder="Enter your username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" class="input-field" placeholder="Enter your password" required>
+            <button type="submit" class="login-btn">Login</button>
+            <a href="#" class="forgot-link">Forgot password?</a>
+        </form>
+        <div class="signup-container">
+            Don’t have an account? <a href="#" class="signup-link">Sign up</a>
         </div>
-        <div class="form-side">
-            <div class="logo">
-                <i class="fas fa-graduation-cap"></i>
-                <h1>StudentHub</h1>
-            </div>
-            <div class="form-title">
-                <h2>Login to Your Account</h2>
-                <p>Enter your credentials to continue</p>
-            </div>
-            <form>
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username or Email" required>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" required>
-                </div>
-                <div class="options">
-                    <label class="remember">
-                        <input type="checkbox"> Remember me
-                    </label>
-                    <a href="#" class="forgot">Forgot password?</a>
-                </div>
-               <a href="index.html"> <button type="submit" class="login-btn">Sign In</button></a>
-                  <div class="signup">
-                Don't have an account? <a href="signup.html">Sign up now</a>
-            </div>
-            </form>
-            <div class="divider">or continue with</div>
-            <div class="social-login">
-                <div class="social-btn google">
-                    <i class="fab fa-google"></i>
-                </div>
-                <div class="social-btn facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </div>
-                <div class="social-btn twitter">
-                    <i class="fab fa-twitter"></i>
-                </div>
-            </div>
-          
-        </div>
+        <div class="divider">OR</div>
+        <button class="continue-btn google">
+            <!-- You can use a proper icon file for better looks -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/24px-Google_%22G%22_Logo.svg.png" alt="Google icon">
+            Continue with Google
+        </button>
+        <button class="continue-btn fb">
+            <!-- You can use a proper icon file for better looks -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook icon">
+            Continue with Facebook
+        </button>
     </div>
-
-    <script>
-        // Simple animation for form elements
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.querySelector('i').style.color = 'var(--primary)';
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.querySelector('i').style.color = '#999';
-                });
-            });
-            
-            // Social button hover effects
-            const socialBtns = document.querySelectorAll('.social-btn');
-            socialBtns.forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    if (this.classList.contains('google')) {
-                        this.style.background = '#DB4437';
-                        this.style.color = 'white';
-                    } else if (this.classList.contains('facebook')) {
-                        this.style.background = '#4267B2';
-                        this.style.color = 'white';
-                    } else if (this.classList.contains('twitter')) {
-                        this.style.background = '#1DA1F2';
-                        this.style.color = 'white';
-                    }
-                });
-                
-                btn.addEventListener('mouseleave', function() {
-                    this.style.background = '#f5f5f5';
-                    if (this.classList.contains('google')) {
-                        this.style.color = '#DB4437';
-                    } else if (this.classList.contains('facebook')) {
-                        this.style.color = '#4267B2';
-                    } else if (this.classList.contains('twitter')) {
-                        this.style.color = '#1DA1F2';
-                    }
-                });
-            });
-        });
-    </script>
 </body>
-
 </html>
-
